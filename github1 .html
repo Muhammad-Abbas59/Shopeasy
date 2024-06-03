@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Website</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #ff69b4;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .jumbotron {
+            background-color: hsl(253, 100%, 78%); /* Light cyan background */
+            color: #ffee58; /* Orange red text */
+        }
+        .btn-primary {
+            background-color: #ff4500; /* Orange red button */
+            border-color: #ff4500;
+        }
+        .chatbox {
+    position: fixed;
+    bottom: 70px; /* Adjusted to leave space for the chat toggle button */
+    right: 10px;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fffacd; /* Lemon chiffon background */
+}
+
+.chatbox-header {
+    background-color: hsl(210, 100%, 68%); /* Dodger blue background */
+    padding: 10px;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chatbox-body {
+    padding: 10px;
+    background-color: #fff; /* White background */
+}
+
+.chatbox-footer {
+    display: flex;
+    padding: 10px;
+    background-color: #f0f8ff; /* Alice blue background */
+}
+
+.chatbox-footer input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #1e90ff; /* Dodger blue border */
+}
+
+.chatbox-footer button {
+    background-color: #1e90ff; /* Dodger blue button */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.message.user {
+    color: #9400d3; /* Dark violet text */
+}
+
+.message.bot {
+    color: #8a2be2; /* Blue violet text */
+}
+
+.chat-toggle-button {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background-color: #ff69b4;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="github1.html">ShopEasy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="github1.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="products.html">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact_us.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">Cart</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Welcome to ShopEasy</h1>
+            <p class="lead">Your one-stop shop for all your needs.</p>
+            <hr class="my-4">
+            <p>Explore our collection of amazing products at unbeatable prices.</p>
+            <a class="btn btn-primary btn-lg" href="products.html" role="button">Start Shopping</a>
+        </div>
+        
+        <h4><b>
+            <p>•"Welcome to ShopEasy, your ultimate shopping destination! Dive into our vast collection and discover the best deals just for you!"</p>
+            <p>•Whether you're looking for the latest trends or everyday essentials, we have everything you need at unbeatable prices."</p>
+            <p>•Your journey to a world of amazing products and fabulous deals begins here. Start exploring!"</p>
+        </b></h4>
+    </div>
+    
+    <!-- Chatbot -->
+    <div class="chatbox" id="chatbox">
+        <div class="chatbox-header">
+            Chat with us!
+        </div>
+        <div class="chatbox-body" id="chatbox-body">
+            <div class="message bot">Hello! How can I help you today?</div>
+        </div>
+        <div class="chatbox-footer">
+            <input type="text" id="chatbox-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <button class="chat-toggle-button" onclick="toggleChat()">💬</button>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function toggleChat() {
+            const chatbox = document.getElementById('chatbox');
+            chatbox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbox-input');
+            const message = input.value.trim();
+            if (message) {
+                const chatboxBody = document.getElementById('chatbox-body');
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user');
+                userMessage.textContent = message;
+                chatboxBody.appendChild(userMessage);
+
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('message', 'bot');
+                botMessage.textContent = getBotResponse(message);
+                chatboxBody.appendChild(botMessage);
+
+                input.value = '';
+                chatboxBody.scrollTop = chatboxBody.scrollHeight;
+            }
+        }
+
+        function getBotResponse(message) {
+            const responses = {
+                hello: 'You can give any order',
+                bye: 'Ok, have a great day!',
+                biscuit: 'Thanks for shopping anything else',
+                soda: 'Anything else?',
+                coc: 'That sounds yummy!',
+                lays: 'Do you want anything else!',
+                chips: 'Finger chips, junkfood or potato chips',
+                'what is your name': 'My name is Chatbot',
+                'what is your age': 'I dont have ages as Im not a human',
+                'what is your gender': 'I dont have gender as Im not a human',
+                'finger chips': 'Ok, that’s available in ShopEasy. You can buy sir/mam!',
+                'junkfood': 'Thats not available in shopeasy since its bad for health',
+                'potato chips': 'Thats available in shopeasy',
+                shirts: 'Which shirts would you prefer white ,pink,violet,green,golden , black or cold/hot and how much?',
+                pink: 'Your order is available we will put it in a shopping bag',
+                white: 'OK! you can take your order',
+                violet: 'Thats a nice colour',
+                green: 'would you like it with benten cartoon',
+                'yes with benten cartoon': 'OK!',
+                gold: 'ooooh that would be expensive',
+                black: 'Thanks for shopping in shopeasy',
+                cold: 'Actually! its summer so cold is not available',
+                hot: 'Your order will be putted in a shopping bag',
+                hamburgers: 'How much would you like to buy?',
+                ok: 'ok sure'
+                 // Add more responses as needed
+                
+            };
+
+            return responses[message.toLowerCase()] || 'Sorry, I did not understand that.';
+        }
+    </script>
+</body>
+</html>
